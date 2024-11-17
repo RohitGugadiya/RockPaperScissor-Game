@@ -1,6 +1,17 @@
+let score = JSON.parse(localStorage.getItem("scoree"));
+
+if (!score) {
+  score = {
+    win: 0,
+    lose: 0,
+    tie: 0,
+  };
+}
+updateScore();
 function playerMove(param) {
-  let computerChoice = computerMove();
   let result = "";
+  let computerChoice = computerMove();
+
   if (param === "Rock") {
     if (computerChoice === "Rock") {
       result = "tie";
@@ -9,35 +20,51 @@ function playerMove(param) {
     } else if (computerChoice === "Scissor") {
       result = "you won";
     }
-
-    alert(
-      `computer: ${computerChoice} ---  Player: ${param} result:${result} `
-    );
-  }
-  if (param === "Paper") {
-    if (computerMove === "Rock") {
+  } else if (param === "Paper") {
+    if (computerChoice === "Rock") {
       result = "you won";
-    } else if (computerMove === "Paper") {
+    } else if (computerChoice === "Paper") {
       result = "tie";
-    } else if (computerMove === "Scissor") {
-      result = "you lode";
-    }
-    alert(
-      `computer: ${computerChoice} ---  Player: ${param} result:${result} `
-    );
-  }
-  if (param === "Scissor") {
-    if (computerMove === "Rock") {
+    } else if (computerChoice === "Scissor") {
       result = "you lose";
-    } else if (computerMove === "Paper") {
+    }
+  } else if (param === "Scissor") {
+    if (computerChoice === "Rock") {
+      result = "you lose";
+    } else if (computerChoice === "Paper") {
       result = "you won";
-    } else if (computerMove === "Scissor") {
+    } else if (computerChoice === "Scissor") {
       result = "tie";
     }
-    alert(
-      `computer: ${computerChoice} ---  Player: ${param} result:${result} `
-    );
   }
+
+  if (result === "you won") {
+    score.win += 1;
+  } else if (result === "you lose") {
+    score.lose += 1;
+  } else if (result === "tie") {
+    score.tie += 1;
+  }
+  localStorage.setItem("scoree", JSON.stringify(score));
+
+  let computerShowImage = document.querySelector(".computer-choice");
+  computerShowImage.src = `${computerChoice}.png`;
+  let userShowImage = document.querySelector(".user-choice");
+  userShowImage.src = `${param}.png`;
+  let showresultElem = document.querySelector(".show-result");
+  showresultElem.innerHTML = `${result}`;
+
+  updateScore();
+
+  // alert(
+  //   `computer: ${computerChoice} ---  Player: ${param} result:${result}
+  //     win:${score.win} tie:${score.tie} lose: ${score.lose}`
+  // );
+}
+
+function updateScore() {
+  let showscoreElem = document.querySelector(".show-score");
+  showscoreElem.innerHTML = ` win:${score.win} tie:${score.tie} lose: ${score.lose}`;
 }
 
 function computerMove() {

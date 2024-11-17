@@ -9,10 +9,41 @@
   <body>
     <h1>Rock <span class="paper-text"> Paper </span>Scissor</h1>
 
+    <p class="show-result">Let's Go.....</p>
+    <p class="show-score">Win:0 Lose:0 Tie:0</p>
+    <div class="choice-on-screen">
+      <div>
+        <img class="computer-choice" src="paper.png" />
+        <p>COMPUTER</p>
+      </div>
+      <div>
+        <img class="user-choice" src="rock.png" />
+        <p>USER</p>
+      </div>
+    </div>
+
     <div class="buttons">
-      <button onclick="playerMove('Rock')">Rock</button>
-      <button onclick="playerMove('Paper')">Paper</button>
-      <button onclick="playerMove('Scissor')">Scissor</button>
+      <button onclick="playerMove('Rock')"><img src="Rock.png" /></button>
+      <button onclick="playerMove('Paper')"><img src="Paper.png" /></button>
+      <button onclick="playerMove('Scissor')">
+        <img src="Scissor.png" />
+      </button>
+      <button
+        onclick="
+         score = {
+        win:0,
+        lose:0,
+        tie:0
+         }
+        localStorage.removeItem('scoree'); 
+        updateScore()
+
+         document.querySelector('.show-result').innerHTML = `Let's Go`
+      
+      "
+      >
+        Reset
+      </button>
     </div>
 
     <script src="RPS.js"></script>
